@@ -1,43 +1,32 @@
-function aleatorio(min, max) {
+function fnAleatorio(min, max) {
   //.floor -> quita los decimales
   //.random -> numero aleatorio entre 0 y 1
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-// 1 piedra, 2 papel, 3 tijera
-
-let jugador = 0;
-let pc = aleatorio(1, 3);
-
-jugador = prompt("Elige: 1 para piedra, 2 para papel, 3 para tijera");
-
-//alert("Elegiste: "+jugador)
-if (jugador == 1) {
-  alert("Elegiste 🪨");
-} else if (jugador == 2) {
-  alert("Elegiste 🧻");
-} else if (jugador == 3) {
-  alert("Elegiste ✂️");
-} else {
-  alert("ELEGISTE PERDER");
+function fnMostrarEleccion(eleccion) {
+  if(eleccion == 1) return "Elegiste 🪨";
+  if(eleccion == 2) return "Elegiste 🧻";
+  if(eleccion == 3) return "Elegiste ✂️";
+  return "❌";
 }
 
-if (pc == 1) {
-  alert("PC Elige 🪨");
-} else if (pc == 2) {
-  alert("PC Elige 🧻");
-} else if (pc == 3) {
-  alert("Pc Elige ✂️");
+function fnGanador(jugador, pc){
+  if(jugador == pc) return "Empate";
+  if((jugador == 1 && pc == 3) || (jugador == 2 && pc == 1) || (jugador == 3 && pc == 2)){
+    return "Ganaste!!!";
+  }
+  return "Perdiste";
 }
 
-if (pc == jugador) {
-  alert("EMPATE");
-} else if (jugador == 1 && pc == 3) {
-  alert("GANASTE");
-} else if (jugador == 2 && pc == 1) {
-  alert("GANASTE");
-} else if (jugador == 3 && pc == 2) {
-  alert("GANASTE");
-} else {
-  alert("PERDISTE");
-}
+let jugador=0;
+let pc=fnAleatorio(1,3);
+
+do {
+  jugador = parseInt(prompt("Elige: 1 para piedra, 2 para papel, 3 para tijera"));
+}while(![1,2,3].includes(jugador));
+
+alert(`Elegiste: ${fnMostrarEleccion(jugador)}`);
+alert(`PC Elige: ${fnMostrarEleccion(pc)}`);
+
+alert(fnGanador(jugador, pc));
